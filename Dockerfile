@@ -6,12 +6,9 @@ WORKDIR /app
 COPY Cargo.lock Cargo.toml /app/
 COPY src /app/src/
 ARG BUILD_ARGS
-<<EOF
-#!/bin/sh
-set -eux
-cargo build --release ${BUILD_ARGS}
-cp ./target/release/vercel-log-drain /vercel-log-drain
-EOF
+RUN set -eux && \
+    cargo build --release ${BUILD_ARGS} && \
+    cp ./target/release/vercel-log-drain /vercel-log-drain
 
 FROM debian:bookworm-slim
 RUN apt-get update && apt-get install -y ca-certificates
