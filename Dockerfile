@@ -6,8 +6,6 @@ WORKDIR /app
 COPY Cargo.lock Cargo.toml /app/
 COPY src /app/src/
 ARG BUILD_ARGS
-RUN --mount=type=cache,target=/usr/local/cargo/registry \
-    --mount=type=cache,target=/app/target \
 <<EOF
 #!/bin/sh
 set -eux
